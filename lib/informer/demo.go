@@ -106,6 +106,13 @@ func NewDummyController(client clientset.Interface) *DummyController {
 
 func (dc *DummyController) Start() {
 	dc.store.Run(dc.stopCh)
+
+	for {
+		select {
+		case <-dc.stopCh:
+			break
+		}
+	}
 }
 
 func (dc *DummyController) Stop() error {
